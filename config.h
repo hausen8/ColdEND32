@@ -15,7 +15,8 @@
 
 
 // Display
-#define SSD1306                                       // Uncomment for OLED with SSD1306 controller
+// #define SSD1306                                       // Uncomment for OLED with SSD1306 controller
+#define SH1106                                        // Uncomment for OLED with SH1106 controller
 // #define HT16K33                                      // Uncomment for 7-Segment LED Display with HT16K33 Controller
 // #define LCD16X2                                      // Uncomment for 16x2 LCD or VFD with I2C Controller
 // #define LCD16X4                                      // Uncomment for 16x4 LCD or VFD with I2C Controller
@@ -24,10 +25,10 @@
 // Coolant pump
 #define FLOW_DIR LOW                                  // Pump flow direction (LOW or HIGH)
 #define MIN_RPM 0.5                                   // Minimum RPM of coolant pump
-#define MAX_RPM 80                                    // Maximum RPM of coolant pump
+#define MAX_RPM 120                                   // Maximum RPM of coolant pump
 #define FAST_RPM 80                                   // Fast mode RPM
 #define SPIT_RPM 80                                   // Spit mode RPM
-#define MAX_SPIT_TIME 8                               // Maximum spit time in seconds
+#define MAX_SPIT_TIME 8                               // Maximum spit time in seconds (Values above 9 will overflow OLED!)
 
 
 // Operator control
@@ -63,6 +64,16 @@
   #include <Adafruit_SSD1306.h>                       // Required library: https://github.com/adafruit/Adafruit_SSD1306
   #include <Fonts/FreeSans18pt7b.h>
   Adafruit_SSD1306 oled(128, 64, &Wire, -1);
+#endif
+
+
+#ifdef SH1106
+  #define OLED
+  #define OLED_ADD 0x3C                               // I2C address of OLED display
+  #include <Adafruit_GFX.h>                           // Required library: https://github.com/adafruit/Adafruit-GFX-Library
+  #include <Adafruit_SH1106.h>                        // Required library: https://github.com/adafruit/Adafruit_SSD1306
+  #include <Fonts/FreeSans18pt7b.h>
+  Adafruit_SH1106 oled(21, 22);                       // SDA: 21, SCL: 22
 #endif
 
 

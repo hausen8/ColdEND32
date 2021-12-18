@@ -27,7 +27,8 @@ bool            air_valve = false;                      // Air valve state (on/o
 
 
 // Switch states
-bool            spit_mode = true;                       // Flag indicating whether spit mode has been executed or not
+bool            spit_mode = false;                      // Spit mode state
+bool            spit_stat = false;                      // Flag indicating whether spit mode has been executed or not
 int             spit_int = 0;                           // Counter for spit stop timer since we need the 2nd interrupt
 byte            fast_mode = LOW;                        // Fast mode state
 byte            mist_stat = LOW;                        // Mist switch state

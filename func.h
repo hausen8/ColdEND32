@@ -90,27 +90,39 @@ void potVals() {
 void pumpControl() {
   // Select speed source and generate stepper pulses
   if (coolant_valve == true) {
-    if (mist_stat == HIGH && spit_mode == false) {
-      int spit_time = spit_pot_val*1000000;                                   // Get spit time from pot
-      timerAlarmWrite(spitTimer, spit_time, true);                            // Trigger timer alarm, autoreload = true
-      timerAlarmEnable(spitTimer);                                            
+    if (spit_pot_val > 0) {
+      if (mist_stat == HIGH && spit_stat == false) {
+        int spit_time = spit_pot_val*1000000;                   // Get spit time from pot (convert s to µs)
+        timerAlarmWrite(spitTimer, spit_time, true);            // Trigger timer alarm, autoreload = true
+        timerAlarmEnable(spitTimer);                                            
+        spit_mode = true;                                       // Activate spit mode
+      }
+      else if (spit_mode == true) {
+        Serial.println(String("spit_pot_val ")+String(spit_pot_val));
+        timerAlarmDisable(spitTimer);                           // Stop spit timer, autoreload = false
+        spit_mode = false;                                      // Deactivate spit mode
+      }
+    }
+
+    if (spit_mode == true) {
       rpm = SPIT_RPM;
     }
     else if (fast_mode == HIGH) {
       rpm = FAST_RPM;
     }
     else {
-      timerAlarmWrite(spitTimer, 0, false);                                   // Stop spit timer
       rpm = mist_pot_val;
     }
-    digitalWrite(OUT_ENABLE, LOW);                                            // Enable stepper driver
-    int edge = round(1000000/(rpm/60*6400*2));                                // Pulse time calculation for stepper to get the time in µs for a rising or falling edge
-    timerAlarmWrite(stepTimer, edge, true);                                   // Trigger timer alarm
+    digitalWrite(OUT_ENABLE, LOW);                            // Enable stepper driver
+    int edge = round(1000000/(rpm/60*6400*2));                // Pulse time calculation for stepper to get the time in µs for a rising or falling edge
+    timerAlarmWrite(stepTimer, edge, true);                   // Trigger timer alarm, autoreload = true
     timerAlarmEnable(stepTimer);
   }
   else {
-    timerAlarmWrite(stepTimer, 0, false);                                     // Stop step timer
-    digitalWrite(OUT_ENABLE, HIGH);                                           // Disable stepper driver
+    timerAlarmDisable(stepTimer);                             // Stop step timer, autoreload = false
+    timerAlarmDisable(spitTimer);                             // Stop spit timer, autoreload = false
+    digitalWrite(OUT_ENABLE, HIGH);                           // Disable stepper driver
+    spit_stat = false;
     spit_mode = false;
     spit_int = 0;
   }
@@ -120,8 +132,9 @@ void pumpControl() {
 void IRAM_ATTR spitMode(){
   portENTER_CRITICAL_ISR(&timerMux1);
   if (spit_int == 1) {
-    spit_mode = true;
+    spit_stat = true;
   }
+  Serial.println(String("Interrupt ")+String(spit_int));
   spit_int++;
   portEXIT_CRITICAL_ISR(&timerMux1);
 }

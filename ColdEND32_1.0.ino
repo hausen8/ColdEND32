@@ -51,10 +51,15 @@ void setup() {
   spitTimer = timerBegin(1, 80, true);                  // Use second timer at 80MHz/80000 = 1ms
   timerAttachInterrupt(spitTimer, &spitMode, true);     // Attach spitMode function to timer
 
-    Serial.begin(115200);
   // Initialize display
   #ifdef SSD1306
+    Serial.begin(115200);
     oled.begin(SSD1306_SWITCHCAPVCC, OLED_ADD);
+  #endif
+  
+  #ifdef SH1106
+    Serial.begin(115200);
+    oled.begin(SH1106_SWITCHCAPVCC, OLED_ADD);
   #endif
 
   #ifdef LED
