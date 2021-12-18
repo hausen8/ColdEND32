@@ -112,17 +112,17 @@ void pumpControl() {
     timerAlarmWrite(stepTimer, 0, false);                                     // Stop step timer
     digitalWrite(OUT_ENABLE, HIGH);                                           // Disable stepper driver
     spit_mode = false;
-    spit_edge = 0;
+    spit_int = 0;
   }
 }
 
 
 void IRAM_ATTR spitMode(){
   portENTER_CRITICAL_ISR(&timerMux1);
-  if (spit_edge == 1) {
+  if (spit_int == 1) {
     spit_mode = true;
   }
-  spit_edge++;
+  spit_int++;
   portEXIT_CRITICAL_ISR(&timerMux1);
 }
 
