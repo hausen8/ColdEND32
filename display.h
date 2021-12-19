@@ -14,11 +14,11 @@ void refDisplay() {
   // refresh display
   #ifdef OLED
     if (mist_pot_val < 10) {
-      digits = 1;                                   // Conversion from float to string
+      digits = 1;                                   // If value < 10, display as float with one decimal place
       cursor_pos = 50;                              // Set cursor depending on string length
     }
     else if (mist_pot_val < 100) {
-      digits = 0;
+      digits = 0;                                   // Else display as int
       cursor_pos = 41;
     }
     else {

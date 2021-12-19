@@ -11,7 +11,7 @@
 
 
 void switchStat() {
-  // Read fast mode switch
+  // Read fast mode momentary switch
   fast_mode = digitalRead(IN_FAST);
   
   // Either read momentary switches or solid state switches
@@ -23,8 +23,8 @@ void switchStat() {
     #ifdef REMOTE_CTRL
       rem_stat = digitalRead(IN_REM);
       if (rem_stat != rem_stat_old) {
-        mist_stat = rem_stat;                       // Switch mist stat
-        air_stat = LOW;                             // switch off air stat
+        mist_stat = rem_stat;                     // Switch mist stat
+        air_stat = LOW;                           // switch off air stat
         rem_stat_old = rem_stat;
       }
     #endif
@@ -32,15 +32,15 @@ void switchStat() {
     // Read momentary mist switch
     btnMist.update();
     if(btnMist.fell()) {
-      mist_stat = !mist_stat;                       // Toggle between mist on and off
-      air_stat = LOW;                               // switch off air stat
+      mist_stat = !mist_stat;                     // Toggle between mist on and off
+      air_stat = LOW;                             // switch off air stat
     }
     
     // Read momentary air switch
     btnAir.update();
     if(btnAir.fell()) {
-      air_stat = !air_stat;                         // Toggle between air on and off
-      mist_stat = LOW;                              // switch off mist stat
+      air_stat = !air_stat;                       // Toggle between air on and off
+      mist_stat = LOW;                            // switch off mist stat
     }
   #else
     mist_stat = digitalRead(IN_MIST);
@@ -71,16 +71,15 @@ void setValves() {
 
 
 void potVals() {
-  // Read potentiometer values
   curr_read = millis();
   if (curr_read - prev_read >= 1) {
     mist_pot_old = mist_pot_val;
-    float mist_pot_raw = exp(log(MIN_RPM) + analogRead(POT_MIST)*exp_scale);
-    mist_pot_val = POT_FILTER*mist_pot_raw + (1-POT_FILTER)*mist_pot_old;
+    float mist_pot_raw = exp(log(MIN_RPM) + analogRead(POT_MIST)*exp_scale);            // Map mist pot range to exponential RPM range (MIN_RPM to MAX_RPM)
+    mist_pot_val = POT_FILTER*mist_pot_raw + (1-POT_FILTER)*mist_pot_old;               // Denoise value with exponential filter
     
     spit_pot_old = spit_pot_val;
-    float spit_pot_raw = (analogRead(POT_SPIT)*max_spit)/4095;
-    spit_pot_val = POT_FILTER*spit_pot_raw + (1-POT_FILTER)*spit_pot_old;
+    float spit_pot_raw = (analogRead(POT_SPIT)*max_spit)/4095;                          // Map spit pot range to spit time (0 to MAX_SPIT_TIME)
+    spit_pot_val = POT_FILTER*spit_pot_raw + (1-POT_FILTER)*spit_pot_old;               // Denoise value with exponential filter
     
     prev_read = curr_read;
   }
@@ -88,21 +87,20 @@ void potVals() {
 
 
 void pumpControl() {
-  // Select speed source and generate stepper pulses
   if (coolant_valve == true) {
     if (spit_pot_val >= 0.1 && mist_stat == HIGH && spit_stat == false) {
       int spit_time = spit_pot_val*1000000;                   // Get spit time from pot (convert s to µs)
-      timerAlarmWrite(spitTimer, spit_time, true);            // Trigger timer alarm, autoreload = true
-      timerAlarmEnable(spitTimer);                                            
-      spit_mode = true;                                       // Activate spit mode
+      timerAlarmWrite(spitTimer, spit_time, true);            // Set timer alarm to spit time, autoreload = true (since we need the 2nd interrupt)
+      timerAlarmEnable(spitTimer);
+      spit_mode = true;
     }
     else if (spit_mode == true) {
-      timerAlarmDisable(spitTimer);                           // Stop spit timer, autoreload = false
-      spit_mode = false;                                      // Deactivate spit mode
+      timerAlarmDisable(spitTimer);                           // Stop spit timer
+      spit_mode = false;
     }
 
     if (spit_mode == true) {
-      rpm = SPIT_RPM;
+      rpm = SPIT_RPM;                                         // Select RPM source
     }
     else if (fast_mode == HIGH) {
       rpm = FAST_RPM;
@@ -112,13 +110,13 @@ void pumpControl() {
     }
     digitalWrite(OUT_ENABLE, LOW);                            // Enable stepper driver
     int edge = round(1000000/(rpm/60*6400*2));                // Pulse time calculation for stepper to get the time in µs for a rising or falling edge
-    timerAlarmWrite(stepTimer, edge, true);                   // Trigger timer alarm, autoreload = true
+    timerAlarmWrite(stepTimer, edge, true);                   // Set timer alarm to pulse length/2, autoreload = true
     timerAlarmEnable(stepTimer);
   }
   else {
-    timerAlarmDisable(stepTimer);                             // Stop step timer, autoreload = false
-    timerAlarmDisable(spitTimer);                             // Stop spit timer, autoreload = false
-    digitalWrite(OUT_ENABLE, HIGH);                           // Disable stepper driver
+    timerAlarmDisable(stepTimer);                             // Stop timers and reset all states
+    timerAlarmDisable(spitTimer);
+    digitalWrite(OUT_ENABLE, HIGH);
     spit_stat = false;
     spit_mode = false;
     spit_int = 0;
