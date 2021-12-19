@@ -90,18 +90,15 @@ void potVals() {
 void pumpControl() {
   // Select speed source and generate stepper pulses
   if (coolant_valve == true) {
-    if (spit_pot_val > 0) {
-      if (mist_stat == HIGH && spit_stat == false) {
-        int spit_time = spit_pot_val*1000000;                   // Get spit time from pot (convert s to µs)
-        timerAlarmWrite(spitTimer, spit_time, true);            // Trigger timer alarm, autoreload = true
-        timerAlarmEnable(spitTimer);                                            
-        spit_mode = true;                                       // Activate spit mode
-      }
-      else if (spit_mode == true) {
-        Serial.println(String("spit_pot_val ")+String(spit_pot_val));
-        timerAlarmDisable(spitTimer);                           // Stop spit timer, autoreload = false
-        spit_mode = false;                                      // Deactivate spit mode
-      }
+    if (spit_pot_val >= 0.1 && mist_stat == HIGH && spit_stat == false) {
+      int spit_time = spit_pot_val*1000000;                   // Get spit time from pot (convert s to µs)
+      timerAlarmWrite(spitTimer, spit_time, true);            // Trigger timer alarm, autoreload = true
+      timerAlarmEnable(spitTimer);                                            
+      spit_mode = true;                                       // Activate spit mode
+    }
+    else if (spit_mode == true) {
+      timerAlarmDisable(spitTimer);                           // Stop spit timer, autoreload = false
+      spit_mode = false;                                      // Deactivate spit mode
     }
 
     if (spit_mode == true) {
@@ -134,7 +131,6 @@ void IRAM_ATTR spitMode(){
   if (spit_int == 1) {
     spit_stat = true;
   }
-  Serial.println(String("Interrupt ")+String(spit_int));
   spit_int++;
   portEXIT_CRITICAL_ISR(&timerMux1);
 }

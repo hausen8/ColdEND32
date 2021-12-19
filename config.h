@@ -15,11 +15,11 @@
 
 
 // Display
-// #define SSD1306                                       // Uncomment for OLED with SSD1306 controller
-#define SH1106                                        // Uncomment for OLED with SH1106 controller
-// #define HT16K33                                      // Uncomment for 7-Segment LED Display with HT16K33 Controller
-// #define LCD16X2                                      // Uncomment for 16x2 LCD or VFD with I2C Controller
-// #define LCD16X4                                      // Uncomment for 16x4 LCD or VFD with I2C Controller
+#define SSD1306                                       // Uncomment for OLED with SSD1306 controller
+// #define SH1106                                        // Uncomment for OLED with SH1106 controller
+// #define HT16K33                                       // Uncomment for 7-Segment LED Display with HT16K33 Controller
+// #define LCD16X2                                       // Uncomment for 16x2 LCD or VFD with I2C Controller
+// #define LCD16X4                                       // Uncomment for 16x4 LCD or VFD with I2C Controller
 
 
 // Coolant pump
