@@ -6,6 +6,7 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
+  Last edited by Tilman, 2021-12-20
 
 */
 
@@ -25,9 +26,9 @@
 // Coolant pump
 #define FLOW_DIR LOW                                  // Pump flow direction (LOW or HIGH)
 #define MIN_RPM 0.5                                   // Minimum RPM of coolant pump
-#define MAX_RPM 120                                   // Maximum RPM of coolant pump
+#define MAX_RPM 80                                    // Maximum RPM of coolant pump
 #define FAST_RPM 80                                   // Fast mode RPM
-#define SPIT_RPM 80                                   // Spit mode RPM
+#define SPIT_RPM 60                                   // Spit mode RPM
 #define MIN_SPIT_TIME 0.1                             // Minimum spit time in seconds
 #define MAX_SPIT_TIME 8                               // Maximum spit time in seconds (Values above 9 will overflow OLED!)
 #define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0

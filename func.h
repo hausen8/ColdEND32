@@ -6,6 +6,7 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
+  Last edited by Tilman, 2021-12-20
 
 */
 
@@ -76,10 +77,12 @@ void potVals() {
     mist_pot_old = mist_pot_val;
     float mist_pot_raw = exp(log(MIN_RPM) + analogRead(POT_MIST)*exp_scale);            // Map mist pot range to exponential RPM range (MIN_RPM to MAX_RPM)
     mist_pot_val = POT_FILTER*mist_pot_raw + (1-POT_FILTER)*mist_pot_old;               // Denoise value with exponential filter
+    mist_val = round(mist_pot_val*10)/10;
     
     spit_pot_old = spit_pot_val;
     float spit_pot_raw = (analogRead(POT_SPIT)*max_spit)/4095;                          // Map spit pot range to spit time (0 to MAX_SPIT_TIME)
     spit_pot_val = POT_FILTER*spit_pot_raw + (1-POT_FILTER)*spit_pot_old;               // Denoise value with exponential filter
+    spit_val = round(spit_pot_val*10)/10;
     
     prev_pot_read = curr_pot_read;
   }
@@ -108,8 +111,8 @@ void pumpControl() {
     #endif
     
     if (spit_pot_val >= MIN_SPIT_TIME && mist_stat == HIGH && spit_stat == false) {
-      int spit_stop = spit_pot_val*1000000;                     // Get spit time from pot (convert s to µs)
-      timerAlarmWrite(spitTimer, spit_stop, true);              // Set timer alarm to spit time, autoreload = true (since we need the 2nd interrupt)
+      int spit_time = spit_pot_val*1000000;                     // Get spit time from pot (convert s to µs)
+      timerAlarmWrite(spitTimer, spit_time, true);              // Set timer alarm to spit time, autoreload = true (since we need the 2nd interrupt)
       timerAlarmEnable(spitTimer);
       spit_mode = true;
     }
@@ -138,17 +141,17 @@ void pumpControl() {
     digitalWrite(OUT_ENABLE, HIGH);
     spit_stat = false;
     spit_mode = false;
-    spit_int = 0;
+    spit_stop = false;
   }
 }
 
 
 void IRAM_ATTR spitMode(){
   portENTER_CRITICAL_ISR(&timerMux1);
-  if (spit_int == 1) {
+  if (spit_stop == true) {
     spit_stat = true;
   }
-  spit_int++;
+  spit_stop = true;
   portEXIT_CRITICAL_ISR(&timerMux1);
 }
 

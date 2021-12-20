@@ -6,17 +6,18 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
+  Last edited by Tilman, 2021-12-20
 
 */
 
 
-void displayLoop() {
+void dispContent() {
   #ifdef OLED
-    if (mist_pot_val < 10) {
+    if (mist_val < 10) {
       digits = 1;                                       // If value < 10, display as float with one decimal place
       cursor_pos = 50;                                  // Set cursor depending on string length
     }
-    else if (mist_pot_val < 100) {
+    else if (mist_val < 100) {
       digits = 0;                                       // Else display as int
       cursor_pos = 41;
     }
@@ -34,14 +35,14 @@ void displayLoop() {
     oled.drawLine(0, 12, 128, 12, WHITE);
     oled.setFont(&FreeSans18pt7b);
     oled.setCursor(0, 42);
-    oled.print(mist_pot_val, digits);
+    oled.print(mist_val, digits);
     oled.setFont();
     oled.setTextSize(1);
     oled.setCursor(cursor_pos, 36);
     oled.print("rpm");
     oled.setFont(&FreeSans18pt7b);
     oled.setCursor(100, 42);
-    oled.print(spit_pot_val, 0);
+    oled.print(spit_val, 0);
     oled.setFont();
     oled.setTextSize(1);
     oled.setCursor(122, 36);
@@ -127,7 +128,7 @@ void displayLoop() {
 void refDisplay() {
   curr_refresh = millis();
   if (curr_refresh - prev_refresh >= REFRESH_TIME) {
-    displayLoop();                                      // Refresh display content after REFRESH_TIME milliseconds
+    dispContent();                                      // Refresh display content after REFRESH_TIME milliseconds
     prev_refresh = curr_refresh;
   }
 }
