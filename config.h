@@ -28,15 +28,18 @@
 #define MAX_RPM 120                                   // Maximum RPM of coolant pump
 #define FAST_RPM 80                                   // Fast mode RPM
 #define SPIT_RPM 80                                   // Spit mode RPM
+#define MIN_SPIT_TIME 0.1                             // Minimum spit time in seconds
 #define MAX_SPIT_TIME 8                               // Maximum spit time in seconds (Values above 9 will overflow OLED!)
+#define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0
 
 
 // Operator control
 #define MOMENTARY_SWITCH                              // Choose between normal switches and momentary switches
-#define SCREEN_DELAY 100                              // Minimum delay between two screen refreshes in milliseconds
+#define REFRESH_TIME 100                              // Time between two screen refreshes in milliseconds
 #define SWITCH_DEBOUNCE 30                            // Delay time in milliseconds to debounce momentary switches
 #define REMOTE_CTRL                                   // Use switch input #4 for remote mist control (solid state signal). Momentary switches are required!
 #define POT_FILTER 0.05                               // Noise filter for raw potentiometer values
+#define POT_LOOP 1                                    // Loop time for reading pot values in ms 
 
 
 // Pinout

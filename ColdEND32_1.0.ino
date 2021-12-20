@@ -86,12 +86,15 @@ void loop() {
   // Read potentiometer values
   potVals();
 
+  // Switch spit LED
+  spitLED();
+
   // Control coolant pump
   pumpControl();
   
   // Refresh display (if defined)
   #if defined OLED || defined LED || defined LCD
-    prepDisplay();
+    refDisplay();
   #endif
 }
 

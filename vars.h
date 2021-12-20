@@ -16,8 +16,8 @@ float           spit_pot_val = 0.00;                    // Spit value in seconds
 float           mist_pot_old = 0.00;                    // Previous mist pot value for exponential smoothing
 float           spit_pot_old = 0.00;                    // Previous spit pot value for exponential smoothing
 float           max_spit = MAX_SPIT_TIME;               // Convert MAX_SPIT_TIME to float
-unsigned long   prev_read = 0;                          // Previous pot read loop
-unsigned long   curr_read = 0;                          // Current pot read loop
+unsigned long   prev_pot_read = 0;                      // Previous pot read loop
+unsigned long   curr_pot_read = 0;                      // Current pot read loop
 float           exp_scale = log(MAX_RPM/MIN_RPM)/4095;  // Exponential flow scaling to match a 12bit analogue value
 
 
@@ -34,23 +34,22 @@ byte            fast_mode = LOW;                        // Fast mode state
 byte            mist_stat = LOW;                        // Mist switch state
 byte            air_stat = LOW;                         // Air switch state
 byte            rem_stat = LOW;                         // Remote mist control state
-byte            rem_stat_old = LOW;
+byte            rem_stat_old = LOW;                     // Last remote state
 
 
-// Stepper timing
+// Stepper
 volatile byte   pulse = LOW;                            // Step pulse state
 float           rpm = 0.00;                             // Stepper RPM
-unsigned long   spit_start = 0;                         // Spit start timestamp
-unsigned long   spit_stop = 0;                          // Spit stop timestamp
 
 
-// Displays
+// Display
 unsigned long   prev_refresh = 0;                       // Previous display refresh time
 unsigned long   curr_refresh = 0;                       // Current display refresh time
 char            disp_mist[4];                           // Displayed mist value
 char            disp_spit[4];                           // Displayed spit value
 int             cursor_pos = 0;                         // Variable cursor position
-int             digits = 0;
+int             digits = 0;                             // Mist value decimal places
+
 
 
 
