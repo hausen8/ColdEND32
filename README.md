@@ -28,7 +28,8 @@ Installation and configuration:
    and push the fast mode switch.
 
 5) Uncomment (define) REMOTE_CTRL if you want to control your ColdEND32 system from the
-   CNC controller with a 24V solid signal (must be connected to input #4).
+   CNC controller with a 24V solid signal (must be connected to input #4). Please note
+   that momentary switches are required!
 
 6) Flash your ColdEND controller and do a first check:
 
