@@ -45,7 +45,8 @@ Installation and configuration:
    Mist or Spit pot values are jumping             | Try lower POT_FILTER values
    Mist or Spit pot values are still jumping       | Increase POT_LOOP to 2 or 3
 
-   If any of these values have been altered, you need to flash the controller once again.
+7) If any of these values have been altered, you need to flash the controller once again.
+
 
 
 **HISTORY:**
