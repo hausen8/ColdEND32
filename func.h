@@ -85,7 +85,7 @@ void potVals() {
     spit_pot_old = spit_pot_val;
     float spit_pot_raw = (analogRead(POT_SPIT)*max_spit)/4095;                          // Map spit pot range to spit time (0 to MAX_SPIT_TIME)
     spit_pot_val = POT_FILTER*spit_pot_raw + (1-POT_FILTER)*spit_pot_old;               // Denoise value with exponential filter
-    spit_val = round(spit_pot_val*10)/10;                                               // Round displayed value to one decimal place
+    spit_val = round(spit_pot_val);                                                     // Round displayed value to int to avoid unwanted refreshes
     
     prev_pot_read = curr_pot_read;
   }

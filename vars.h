@@ -47,10 +47,14 @@ unsigned long   spit_start = 0;                         // Timestamp for spit st
 unsigned long   prev_refresh = 0;                       // Previous display refresh time
 unsigned long   curr_refresh = 0;                       // Current display refresh time
 float           mist_val = 0.0;                         // Displayed mist value
-float           spit_val = 0.0;                         // Displayed spit value
-float           spit_sub = 0.0;
+int             spit_val = 0;                           // Displayed spit value
+float           spit_sub = 0.0;                         // Subtracted from spit time during spit mode countdown
 int             cursor_pos = 0;                         // Variable cursor position
 int             digits = 0;                             // Mist value decimal places
+float           mist_old = 0.0;                         // Values from previous refresh
+int             spit_old = 0;
+byte            coolant_old = LOW;
+byte            air_old = LOW;
 
 
 

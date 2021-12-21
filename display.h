@@ -18,7 +18,7 @@ void dispContent() {
       cursor_pos = 50;                                  // Set cursor depending on string length
     }
     else if (mist_val < 100) {
-      digits = 0;                                       // Else display as int
+      digits = 0;                                       // Display as int
       cursor_pos = 41;
     }
     else {
@@ -66,7 +66,7 @@ void dispContent() {
 
 
   #ifdef LED
-    led1.print(mist_pot_val);
+    led1.print(mist_val);
     led1.writeDisplay();
     led2.clear();
     if (coolant_valve == true) {
@@ -75,48 +75,54 @@ void dispContent() {
     if (air_valve == true) {
       led2.writeDigitRaw(1, 0b11110111);                // Draw "A"
     }
-    led2.writeDigitNum(4, spit_pot_val);
+    led2.writeDigitNum(4, spit_val);
     led2.writeDisplay();
   #endif
 
 
   #ifdef LCD
-    if (mist_pot_val != mist_pot_old || spit_pot_val != spit_pot_old) {
-      if (mist_pot_val < 10) {
-        digits = 1;                                     // If value < 10, display as float with one decimal place
+    if (mist_val < 10) {
+      digits = 1;                                     // If value < 10, display as float with one decimal place
+      cursor_pos = 10;
+    }
+    else if (mist_val < 100) {
+      digits = 0;                                     // Display as int
+      cursor_pos = 11;
+    }
+    else {
+      digits = 0;                                     // Display as int
+      cursor_pos = 10;
+    }
+    lcd.clear();
+    lcd.print("Coolant:");
+    lcd.setCursor(cursor_pos, 0);
+    lcd.print(mist_val, digits);
+    lcd.print("rpm");
+    lcd.setCursor(0, 1);
+    lcd.print("Spit T.:");
+    lcd.setCursor(14, 1);
+    lcd.print(spit_val, 0);
+    lcd.print("s");
+    #ifdef LCD16X4
+      lcd.setCursor(-4, 2);                           // For some reason cursor position at 3rd and 4rth line start with -4 instead of 0
+      lcd.print("C. Valve:");
+      lcd.setCursor(10, 2);
+      if (coolant_valve == true) {
+        lcd.print("On");
       }
       else {
-        digits = 0;                                     // Else display as int
+        lcd.print("--");
       }
-      lcd.clear();
-      lcd.print("Coolant: ");
-      lcd.print(mist_pot_val, digits);
-      lcd.print("rpm");
-      lcd.setCursor(0, 1);
-      lcd.print("Spit T.: ");
-      lcd.print(spit_pot_val, 1);
-      lcd.print("s");
-      #ifdef LCD16X4
-        lcd.setCursor(-4, 2);                           // For some reason cursor position at 3rd and 4rth line start with -4 instead of 0
-        lcd.print("C. Valve: ");
-        lcd.setCursor(10, 2);
-        if (coolant_valve == true) {
-          lcd.print("On");
-        }
-        else {
-          lcd.print("--");
-        }
-        lcd.setCursor(-4, 3);
-        lcd.print("A. Valve: ");
-        lcd.setCursor(10, 3);
-        if (air_valve == true) {
-          lcd.print("On");
-        }
-        else {
-          lcd.print("--");
-        }
-      #endif
-    }
+      lcd.setCursor(-4, 3);
+      lcd.print("A. Valve:");
+      lcd.setCursor(10, 3);
+      if (air_valve == true) {
+        lcd.print("On");
+      }
+      else {
+        lcd.print("--");
+      }
+    #endif
   #endif
 }
 
@@ -134,7 +140,14 @@ void refDisplay() {
     else {
       spit_sub = 0;                                     // Reset subtraction
     }
-    dispContent();                                      // Refresh display content after REFRESH_TIME milliseconds
+    if (mist_val != mist_old || spit_val != spit_old || coolant_valve != coolant_old || air_valve != air_old) {
+      dispContent();                                      // Refresh display content after REFRESH_TIME milliseconds
+
+      mist_old = mist_val;
+      spit_old = spit_val;
+      coolant_old = coolant_valve;
+      air_old = air_valve;
+    }
     prev_refresh = curr_refresh;
   }
 }
