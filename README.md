@@ -24,15 +24,16 @@ Installation and configuration:
    For normal switches leave "momentary_switch" commented.
 
 4) Uncomment (define) DRAIN_SYSTEM if you want to have the option to drain the coolant
-   pump and pipes anytime. For draining the system, set the coolant to 0 ml/h and push the
-   fast mode switch.
+   pump and pipes anytime. To drain your system, turn the coolant pot all the way down 
+   and push the fast mode switch.
 
 5) Flash your ColdEND controller and check if MIN_RPM and MAX_RPM match the desired range.
-   Check spit mode, fast mode and the spit time range. If any of these values need to get changed,
-   you have to flash the controller once again.
+   Check spit mode, fast mode and the spit time range. If any of these values need to get
+   changed, you have to flash the controller once again.
 
-6) If spit mode at times does not start or any of your momentary switches seem to work not properly,
-   it is most likely that they are bouncing. In this case, increase SWITCH_DEBOUNCE slightly.
+6) If spit mode at times does not start or any of your momentary switches seem to work not
+   properly, it is most likely that they are bouncing. In this case, increase SWITCH_DEBOUNCE
+   slightly.
 
 
 **HISTORY:**
