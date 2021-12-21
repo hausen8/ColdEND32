@@ -3,7 +3,7 @@ Firmware for ColdEND32 controller supporting various displays
 
 Installation and configuration:
 
-1) Download and import the following libraries depending on your displays:
+1) Download and import the following libraries depending on your display:
 
    **SSD1306 or SH1106**
    https://github.com/olikraus/U8g2_Arduino
