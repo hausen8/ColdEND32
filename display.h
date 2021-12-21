@@ -6,7 +6,7 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-20
+  Last edited by Tilman, 2021-12-22
 
 */
 
@@ -141,9 +141,9 @@ void refDisplay() {
       spit_sub = 0;                                     // Reset subtraction
     }
     if (mist_val != mist_old || spit_val != spit_old || coolant_valve != coolant_old || air_valve != air_old) {
-      dispContent();                                      // Refresh display content after REFRESH_TIME milliseconds
+      dispContent();                                    // Refresh display content only when something has changed
 
-      mist_old = mist_val;
+      mist_old = mist_val;                              // Save values to compare next time
       spit_old = spit_val;
       coolant_old = coolant_valve;
       air_old = air_valve;

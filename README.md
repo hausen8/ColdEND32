@@ -15,13 +15,13 @@ Installation and configuration:
    https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
 
 2) Uncomment (define) the appropriate display in config.h. Note that only one type of
-   display at one time is allowed so dont' forget to comment the other ones.
+   display at one time is allowed so don't forget to comment the other ones.
    For 7 segment LED displays, don't forget to jumper different I2C addresses for both
    displays and enter these values in config.h ("LED1_ADD" and "LED2_ADD").
 
 3) Uncomment (define) MOMENTARY_SWITCH if you want to use monentary switches.
    Required library: https://github.com/thomasfredericks/Bounce2
-   For normal switches leave "momentary_switch" commented.
+   For normal switches leave MOMENTARY_SWITCH commented.
 
 4) Uncomment (define) DRAIN_SYSTEM if you want to have the option to drain the coolant
    pump and pipes anytime. To drain your system, turn the coolant pot all the way down

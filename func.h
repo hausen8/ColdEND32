@@ -6,7 +6,7 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-20
+  Last edited by Tilman, 2021-12-22
 
 */
 
@@ -77,7 +77,7 @@ void potVals() {
     mist_pot_old = mist_pot_val;
     float mist_pot_raw = exp(log(MIN_RPM) + analogRead(POT_MIST)*exp_scale);            // Map mist pot range to exponential RPM range (MIN_RPM to MAX_RPM)
     mist_pot_val = POT_FILTER*mist_pot_raw + (1-POT_FILTER)*mist_pot_old;               // Denoise value with exponential filter
-    mist_val = round(mist_pot_val*10)/10;                                               // Round displayed value to one decimal place
+    mist_val = round(mist_pot_val*10)/10;                                               // Round displayed value to one decimal place to avoid unwanted refreshes
     if (mist_val >= 10) {
       mist_val = round(mist_val);                                                       // Round greater values here to avoid position conflicts between value and unit
     }

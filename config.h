@@ -6,7 +6,7 @@
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-20
+  Last edited by Tilman, 2021-12-22
 
 */
 
@@ -18,9 +18,15 @@
 // Display
 // #define SSD1306                                       // Uncomment for OLED with SSD1306 controller
 // #define SH1106                                        // Uncomment for OLED with SH1106 controller
-#define HT16K33                                       // Uncomment for 7-Segment LED Display with HT16K33 Controller
+// #define HT16K33                                       // Uncomment for 7-Segment LED Display with HT16K33 Controller
 // #define LCD16X2                                       // Uncomment for 16x2 LCD or VFD with I2C Controller
 // #define LCD16X4                                       // Uncomment for 16x4 LCD or VFD with I2C Controller
+
+
+// Features
+// #define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0
+// #define MOMENTARY_SWITCH                              // Choose between normal switches and momentary switches
+// #define REMOTE_CTRL                                   // Use switch input #4 for remote mist control (solid state signal). Momentary switches are required!
 
 
 // Coolant pump
@@ -31,14 +37,11 @@
 #define SPIT_RPM 60                                   // Spit mode RPM
 #define MIN_SPIT_TIME 0.1                             // Minimum spit time in seconds
 #define MAX_SPIT_TIME 8                               // Maximum spit time in seconds (Values above 9 will overflow OLED!)
-#define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0
 
 
 // Operator control
-#define MOMENTARY_SWITCH                              // Choose between normal switches and momentary switches
-#define REFRESH_TIME 100                              // Time between two screen refreshes in milliseconds
 #define SWITCH_DEBOUNCE 30                            // Delay time in milliseconds to debounce momentary switches
-#define REMOTE_CTRL                                   // Use switch input #4 for remote mist control (solid state signal). Momentary switches are required!
+#define REFRESH_TIME 100                              // Time between two screen refreshes in milliseconds
 #define POT_FILTER 0.05                               // Noise filter for raw potentiometer values
 #define POT_LOOP 1                                    // Loop time for reading pot values in ms 
 
