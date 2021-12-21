@@ -24,16 +24,26 @@ Installation and configuration:
    For normal switches leave "momentary_switch" commented.
 
 4) Uncomment (define) DRAIN_SYSTEM if you want to have the option to drain the coolant
-   pump and pipes anytime. To drain your system, turn the coolant pot all the way down 
+   pump and pipes anytime. To drain your system, turn the coolant pot all the way down
    and push the fast mode switch.
 
-5) Flash your ColdEND controller and check if MIN_RPM and MAX_RPM match the desired range.
-   Check spit mode, fast mode and the spit time range. If any of these values need to get
-   changed, you have to flash the controller once again.
+5) Uncomment (define) REMOTE_CTRL if you want to control your ColdEND32 system from the
+   CNC controller with a 24V solid signal (must be connected to input #4).
 
-6) If spit mode at times does not start or any of your momentary switches seem to work not
-   properly, it is most likely that they are bouncing. In this case, increase SWITCH_DEBOUNCE
-   slightly.
+6) Flash your ColdEND controller and do a first check:
+
+   Problem                                         | Solution
+   ------------------------------------------------|-----------
+   Pump speed range does not match my requirements | Edit MIN_RPM and/or MAX_RPM
+   Flow direction of pump is wrong                 | Edit FLOW_DIR
+   Fast mode speed is too slow/fast                | Edit FAST_RPM
+   Spit mode speed is too slow/fast                | Edit SPIT_RPM
+   Spit time range dows not match my requirements  | Edit MIN_SPIT_TIME and/or MAX_SPIT_TIME
+   Spit mode does not start at times               | Slightly increase SWITCH_DEBOUNCE
+   Momentary switches do not work properly         | Slightly increase SWITCH_DEBOUNCE
+   Display seems to be too slow                    | Decrease REFRESH_TIME
+   Mist or Spit pot values are jumping             | Try lower POT_FILTER values
+   Mist or Spit pot values are still jumping       | Increase POT_LOOP to 2 or 3
 
 
 **HISTORY:**
