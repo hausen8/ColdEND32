@@ -26,7 +26,7 @@
 // Coolant pump
 #define FLOW_DIR LOW                                  // Pump flow direction (LOW or HIGH)
 #define MIN_RPM 0.5                                   // Minimum RPM of coolant pump
-#define MAX_RPM 80                                    // Maximum RPM of coolant pump
+#define MAX_RPM 120                                   // Maximum RPM of coolant pump
 #define FAST_RPM 80                                   // Fast mode RPM
 #define SPIT_RPM 60                                   // Spit mode RPM
 #define MIN_SPIT_TIME 0.1                             // Minimum spit time in seconds
@@ -61,23 +61,16 @@
 #endif
 
 
-#ifdef SSD1306
+#if defined SSD1306 || defined SH1106
   #define OLED
-  #define OLED_ADD 0x3C                               // I2C address of OLED display
-  #include <Adafruit_GFX.h>                           // Required library: https://github.com/adafruit/Adafruit-GFX-Library
-  #include <Adafruit_SSD1306.h>                       // Required library: https://github.com/adafruit/Adafruit_SSD1306
-  #include <Fonts/FreeSans18pt7b.h>
-  Adafruit_SSD1306 oled(128, 64, &Wire, -1);
-#endif
-
-
-#ifdef SH1106
-  #define OLED
-  #define OLED_ADD 0x3C                               // I2C address of OLED display
-  #include <Adafruit_GFX.h>                           // Required library: https://github.com/adafruit/Adafruit-GFX-Library
-  #include <Adafruit_SH1106.h>                        // Required library: https://github.com/adafruit/Adafruit_SSD1306
-  #include <Fonts/FreeSans18pt7b.h>
-  Adafruit_SH1106 oled(21, 22);                       // SDA: 21, SCL: 22
+  #include <Arduino.h>
+  #include <U8g2lib.h>                                // https://github.com/olikraus/U8g2_Arduino
+  #include <Wire.h>
+  #ifdef SSD1306
+    U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
+  #else
+    U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
+  #endif
 #endif
 
 

@@ -30,7 +30,6 @@ bool            air_valve = false;                      // Air valve state (on/o
 // Switch states
 bool            spit_mode = false;                      // Spit mode state
 bool            spit_stat = false;                      // Flag indicating whether spit mode has been executed or not
-bool            spit_stop = false;                      // Spit stop flag since we need the 2nd interrupt
 byte            fast_mode = LOW;                        // Fast mode state
 byte            mist_stat = LOW;                        // Mist switch state
 byte            air_stat = LOW;                         // Air switch state
@@ -41,6 +40,7 @@ byte            rem_stat_old = LOW;                     // Last remote state
 // Stepper
 volatile byte   pulse = LOW;                            // Step pulse state
 float           rpm = 0.00;                             // Stepper RPM
+unsigned long   spit_start = 0;                         // Timestamp for spit start
 
 
 // Display
@@ -48,6 +48,7 @@ unsigned long   prev_refresh = 0;                       // Previous display refr
 unsigned long   curr_refresh = 0;                       // Current display refresh time
 float           mist_val = 0.0;                         // Displayed mist value
 float           spit_val = 0.0;                         // Displayed spit value
+float           spit_sub = 0.0;
 int             cursor_pos = 0;                         // Variable cursor position
 int             digits = 0;                             // Mist value decimal places
 

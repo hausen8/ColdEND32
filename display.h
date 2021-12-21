@@ -25,47 +25,43 @@ void dispContent() {
       digits = 0;
       cursor_pos = 60;
     }
-    oled.clearDisplay();
-    oled.setTextSize(1);
-    oled.setTextColor(WHITE);
-    oled.setCursor(0, 0);
-    oled.print("Coolant");
-    oled.setCursor(101, 0);
-    oled.print("Spit");
-    oled.drawLine(0, 12, 128, 12, WHITE);
-    oled.setFont(&FreeSans18pt7b);
-    oled.setCursor(0, 42);
-    oled.print(mist_val, digits);
-    oled.setFont();
-    oled.setTextSize(1);
-    oled.setCursor(cursor_pos, 36);
-    oled.print("rpm");
-    oled.setFont(&FreeSans18pt7b);
-    oled.setCursor(100, 42);
-    oled.print(spit_val, 0);
-    oled.setFont();
-    oled.setTextSize(1);
-    oled.setCursor(122, 36);
-    oled.print("s");
-    oled.drawLine(0, 48, 128, 48, WHITE);
-    oled.setTextColor(BLACK);
-    
+    u8g2.clearBuffer();
+    u8g2.setFontMode(0);
+    u8g2.setDrawColor(1);
+    u8g2.setFont(u8g2_font_lucasfont_alternate_tr);
+    u8g2.drawStr(0, 7, "Coolant");
+    u8g2.drawStr(101, 7, "Spit");
+    u8g2.drawLine(0, 12, 128, 12);
+    u8g2.setFont(u8g2_font_fur25_tf);
+    u8g2.setCursor(0, 43);
+    u8g2.print(mist_val, digits);
+    u8g2.setFont(u8g2_font_lucasfont_alternate_tr);
+    u8g2.drawStr(cursor_pos, 43, "rpm");
+    u8g2.setFont(u8g2_font_fur25_tf);
+    u8g2.setCursor(100, 43);
+    u8g2.print(spit_val, 0);
+    u8g2.setFont(u8g2_font_lucasfont_alternate_tr);
+    u8g2.drawStr(122, 43, "s");
+    u8g2.drawLine(0, 48, 128, 48);
     if (spit_mode == true) {
-      oled.fillRect(0, 54, 57, 10, WHITE);              // Draw white rectangle with black text
-      oled.setCursor(2, 55);
-      oled.print("Spit Mode");
+      u8g2.setDrawColor(1);
+      u8g2.drawBox(0, 53, 55, 11);
+      u8g2.setDrawColor(0);
+      u8g2.drawStr(3, 62, "Spit Mode");
     }
     else if (coolant_valve == true) {
-      oled.fillRect(0, 54, 63, 10, WHITE);
-      oled.setCursor(2, 55);
-      oled.print("Coolant On");
+      u8g2.setDrawColor(1);
+      u8g2.drawBox(0, 53, 60, 11);
+      u8g2.setDrawColor(0);
+      u8g2.drawStr(3, 62, "Coolant On");
     }
     if (air_valve == true) {
-      oled.fillRect(89, 54, 39, 10, WHITE);
-      oled.setCursor(91, 55);
-      oled.print("Air On");
+      u8g2.setDrawColor(1);
+      u8g2.drawBox(93, 53, 39, 11);
+      u8g2.setDrawColor(0);
+      u8g2.drawStr(96, 62, "Air On");
     }
-    oled.display();
+    u8g2.sendBuffer();
   #endif
 
 
@@ -128,6 +124,16 @@ void dispContent() {
 void refDisplay() {
   curr_refresh = millis();
   if (curr_refresh - prev_refresh >= REFRESH_TIME) {
+    if (spit_mode == true) {
+      spit_sub+=(REFRESH_TIME/1000.0);                  // Calculate time to subtract from spit time during spit mode
+      spit_val-=spit_sub;                               // Spit time countdown
+      if (spit_val < 0) {
+        spit_val = 0;
+      }
+    }
+    else {
+      spit_sub = 0;                                     // Reset subtraction
+    }
     dispContent();                                      // Refresh display content after REFRESH_TIME milliseconds
     prev_refresh = curr_refresh;
   }

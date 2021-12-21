@@ -51,7 +51,7 @@ void switchStat() {
 
 
 void setValves() {
-  // Switch control relays for solenoid valves
+  // Switch control relays for solenoid valves and set flags
   if (fast_mode == HIGH || mist_stat == HIGH) {
     digitalWrite(OUT_COOLANT, HIGH);
     coolant_valve = true;
@@ -111,14 +111,16 @@ void pumpControl() {
     #endif
     
     if (spit_pot_val >= MIN_SPIT_TIME && mist_stat == HIGH && spit_stat == false) {
-      int spit_time = spit_pot_val*1000000;                     // Get spit time from pot (convert s to µs)
-      timerAlarmWrite(spitTimer, spit_time, true);              // Set timer alarm to spit time, autoreload = true (since we need the 2nd interrupt)
-      timerAlarmEnable(spitTimer);
-      spit_mode = true;
-    }
-    else if (spit_mode == true) {
-      timerAlarmDisable(spitTimer);                             // Stop spit timer
-      spit_mode = false;
+      if (spit_mode == false) {
+        spit_start = millis();                                  // Set timestamp for spit start
+      }
+      if (millis() < spit_start+(spit_pot_val*1000)) {
+        spit_mode = true;                                       // Set spit mode true as long as time is below timestamp + spit time
+      }
+      else {
+        spit_mode = false;                                      // Unset spit mode
+        spit_stat = true;                                       // Set flag spit mode = executed
+      }
     }
 
     if (spit_mode == true) {
@@ -137,22 +139,10 @@ void pumpControl() {
   }
   else {
     timerAlarmDisable(stepTimer);                               // Stop timers and reset all states
-    timerAlarmDisable(spitTimer);
     digitalWrite(OUT_ENABLE, HIGH);
     spit_stat = false;
     spit_mode = false;
-    spit_stop = false;
   }
-}
-
-
-void IRAM_ATTR spitMode(){
-  portENTER_CRITICAL_ISR(&timerMux1);
-  if (spit_stop == true) {
-    spit_stat = true;
-  }
-  spit_stop = true;
-  portEXIT_CRITICAL_ISR(&timerMux1);
 }
 
 
