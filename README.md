@@ -48,7 +48,6 @@ Installation and configuration:
 7) If any of these values have been altered, you need to flash the controller once again.
 
 
-
 **HISTORY:**
 
 - v1.0: Initial firmware for ESP32 controlled pump board
