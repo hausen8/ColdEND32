@@ -78,6 +78,9 @@ void potVals() {
     float mist_pot_raw = exp(log(MIN_RPM) + analogRead(POT_MIST)*exp_scale);            // Map mist pot range to exponential RPM range (MIN_RPM to MAX_RPM)
     mist_pot_val = POT_FILTER*mist_pot_raw + (1-POT_FILTER)*mist_pot_old;               // Denoise value with exponential filter
     mist_val = round(mist_pot_val*10)/10;
+    if (mist_val >= 10) {
+      mist_val = round(mist_val);
+    }
     
     spit_pot_old = spit_pot_val;
     float spit_pot_raw = (analogRead(POT_SPIT)*max_spit)/4095;                          // Map spit pot range to spit time (0 to MAX_SPIT_TIME)
