@@ -25,8 +25,8 @@
 
 // Features
 // #define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0
-// #define MOMENTARY_SWITCH                              // Choose between normal switches and momentary switches
-// #define REMOTE_CTRL                                   // Use switch input #4 for remote mist control (solid state signal). Momentary switches are required!
+// #define MOMENTARY_SWITCH                              // Uncomment for momentary switches instead of solid state switches
+// #define REMOTE_CTRL                                   // Use input #4 for remote mist control from CNC. Momentary switches are required!
 
 
 // Coolant pump
@@ -67,7 +67,7 @@
 #if defined SSD1306 || defined SH1106
   #define OLED
   #include <Arduino.h>
-  #include <U8g2lib.h>                                // https://github.com/olikraus/U8g2_Arduino
+  #include <U8g2lib.h>                                // Required library: https://github.com/olikraus/U8g2_Arduino
   #include <Wire.h>
   #ifdef SSD1306
     U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
