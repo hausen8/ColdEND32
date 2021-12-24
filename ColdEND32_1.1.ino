@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.0 Minimum Quantity Lubrication
+  ColdEND32 v1.1 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-22
+  Last edited by Tilman, 2021-12-24
 
 */
 
@@ -39,6 +39,12 @@ void setup() {
   pinMode(OUT_STEP, OUTPUT);
   pinMode(OUT_DIR, OUTPUT);
   pinMode(OUT_ENABLE, OUTPUT);
+
+  #ifdef EXT_LED
+    pinMode(OUT_5V_1, OUTPUT);
+    pinMode(OUT_5V_2, OUTPUT);
+    pinMode(OUT_5V_3, OUTPUT);
+  #endif
 
   // Initialize stepper
   digitalWrite(OUT_DIR, FLOW_DIR);                      // Set flow direction
@@ -77,8 +83,8 @@ void loop() {
   // Read potentiometer values
   potVals();
 
-  // Switch spit LED
-  spitLED();
+  // Switch LEDs
+  switchLEDs();
 
   // Control coolant pump
   pumpControl();

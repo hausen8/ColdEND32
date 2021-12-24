@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.0 Minimum Quantity Lubrication
+  ColdEND32 v1.1 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-22
+  Last edited by Tilman, 2021-12-24
 
 */
 
@@ -92,13 +92,18 @@ void potVals() {
 }
 
 
-void spitLED() {
+void switchLEDs() {
   if (spit_pot_val >= MIN_SPIT_TIME) {
     digitalWrite(OUT_SPIT_LED, HIGH);
   }
   else {
     digitalWrite(OUT_SPIT_LED, LOW);
   }
+  #ifdef EXT_LED
+    digitalWrite(OUT_5V_1, mist_stat);
+    digitalWrite(OUT_5V_2, air_stat);
+    digitalWrite(OUT_5V_3, spit_mode ? HIGH : LOW);
+  #endif
 }
 
 
