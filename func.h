@@ -92,13 +92,18 @@ void potVals() {
 }
 
 
-void spitLED() {
+void switchLEDs() {
   if (spit_pot_val >= MIN_SPIT_TIME) {
     digitalWrite(OUT_SPIT_LED, HIGH);
   }
   else {
     digitalWrite(OUT_SPIT_LED, LOW);
   }
+  #ifdef EXT_LED
+    digitalWrite(OUT_5V_1, mist_stat);
+    digitalWrite(OUT_5V_2, air_stat);
+    digitalWrite(OUT_5V_3, spit_mode ? HIGH : LOW);
+  #endif
 }
 
 
