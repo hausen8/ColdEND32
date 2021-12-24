@@ -55,6 +55,6 @@ Installation and configuration:
 
 **HISTORY:**
 
-- v1.1: Added support for external LEDs indicating the active mode (mist, air or spit)
+- v1.1: Added support for external LEDs indicating active mode (mist, air or spit)
 
 - v1.0: Initial firmware for ESP32 controlled pump board
