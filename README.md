@@ -32,7 +32,7 @@ Installation and configuration:
    that momentary switches are required!
 
 6) Uncomment (define EXT_LED for external LEDs indicating active mist, air or spit mode.
-   LEDs will be connected to first 3 pin pairs of JP5 (inner pin: +5V, outer Pin: GND).
+   LEDs will be connected to first 3 pin pairs of JP5 (inner pin: GND, outer Pin: +5V).
    Please use appropriate resistors!
 
 7) Flash your ColdEND controller and do a first check:
