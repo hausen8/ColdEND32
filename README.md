@@ -31,7 +31,7 @@ Installation and configuration:
    CNC controller with a 24V solid signal (must be connected to input #4). Please note
    that momentary switches are required!
 
-6) Uncomment (define EXT_LED for external LEDs indicating active mist, air or spit mode.
+6) Uncomment (define) EXT_LED for external LEDs indicating active mist, air or spit mode.
    LEDs will be connected to first 3 pin pairs of JP5 (inner pin: GND, outer Pin: +5V).
    Please use appropriate resistors!
 
