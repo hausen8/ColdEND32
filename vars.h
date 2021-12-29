@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.1 Minimum Quantity Lubrication
+  ColdEND32 v1.2 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-24
+  Last edited by Tilman, 2021-12-29
 
 */
 
@@ -49,6 +49,7 @@ unsigned long   curr_refresh = 0;                       // Current display refre
 float           mist_val = 0.0;                         // Displayed mist value
 int             spit_val = 0;                           // Displayed spit value
 float           spit_sub = 0.0;                         // Subtracted from spit time during spit mode countdown
+int             start_pos = 0;                          // Variable start position to fix some 16x4 LCD
 int             cursor_pos = 0;                         // Variable cursor position
 int             digits = 0;                             // Mist value decimal places
 float           mist_old = 0.0;                         // Values from previous refresh
