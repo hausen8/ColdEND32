@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.1 Minimum Quantity Lubrication
+  ColdEND32 v1.2 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-24
+  Last edited by Tilman, 2021-12-29
 
 */
 
@@ -18,7 +18,7 @@ void dispContent() {
       cursor_pos = 50;                                  // Set cursor depending on string length
     }
     else if (mist_val < 100) {
-      digits = 0;                                       // Display as int
+      digits = 0;                                       // Display rounded to int
       cursor_pos = 41;
     }
     else {
@@ -81,16 +81,20 @@ void dispContent() {
 
 
   #ifdef LCD
+    #ifdef FIX16X4
+      start_pos = -4;                                   // Fix some 16x4 LCD starting row 3 and 4 at wrong positions
+    #endif
+    
     if (mist_val < 10) {
-      digits = 1;                                     // If value < 10, display as float with one decimal place
+      digits = 1;                                       // If value < 10, display as float with one decimal place
       cursor_pos = 10;
     }
     else if (mist_val < 100) {
-      digits = 0;                                     // Display as int
+      digits = 0;                                       // Display rounded to int
       cursor_pos = 11;
     }
     else {
-      digits = 0;                                     // Display as int
+      digits = 0;                                       // Display rounded to int
       cursor_pos = 10;
     }
     lcd.clear();
@@ -104,7 +108,7 @@ void dispContent() {
     lcd.print(spit_val, 0);
     lcd.print("s");
     #ifdef LCD16X4
-      lcd.setCursor(-4, 2);                           // For some reason cursor position at 3rd and 4rth line start with -4 instead of 0
+      lcd.setCursor(start_pos, 2);
       lcd.print("C. Valve:");
       lcd.setCursor(10, 2);
       if (coolant_valve == true) {
@@ -113,7 +117,7 @@ void dispContent() {
       else {
         lcd.print("--");
       }
-      lcd.setCursor(-4, 3);
+      lcd.setCursor(start_pos, 3);
       lcd.print("A. Valve:");
       lcd.setCursor(10, 3);
       if (air_valve == true) {

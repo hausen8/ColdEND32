@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.1 Minimum Quantity Lubrication
+  ColdEND32 v1.2 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-24
+  Last edited by Tilman, 2021-12-29
 
 */
 
@@ -21,6 +21,7 @@
 // #define HT16K33                                       // Uncomment for 7-Segment LED Display with HT16K33 Controller
 // #define LCD16X2                                       // Uncomment for 16x2 LCD or VFD with I2C Controller
 // #define LCD16X4                                       // Uncomment for 16x4 LCD or VFD with I2C Controller
+// #define FIX16X4                                       // Uncomment to fix some 16x4 LCD row 3 and 4 starting at wrong positions
 
 
 // Features
@@ -44,7 +45,7 @@
 #define SWITCH_DEBOUNCE 30                            // Delay time in milliseconds to debounce momentary switches
 #define REFRESH_TIME 100                              // Time between two screen refreshes in milliseconds
 #define POT_FILTER 0.05                               // Noise filter for raw potentiometer values
-#define POT_LOOP 1                                    // Loop time for reading pot values in ms 
+#define POT_LOOP 1                                    // Loop time for reading pot values in ms
 
 
 // Pinout
@@ -56,7 +57,7 @@
   #define IN_AIR 39                                   // Air only switch
   #define IN_REM 35                                   // Remote control
   #define OUT_DIR 14                                  // Direction pin
-  #define OUT_STEP 13                                 // Step pin 
+  #define OUT_STEP 13                                 // Step pin
   #define OUT_ENABLE 12                               // Enable pin
   #define OUT_AIR 2                                   // Air valve pin
   #define OUT_COOLANT 0                               // Coolant valve pin
