@@ -110,7 +110,7 @@ void dispContent() {
     #ifdef LCD16X4
       lcd.setCursor(start_pos, 2);
       lcd.print("C. Valve:");
-      lcd.setCursor(10, 2);
+      lcd.setCursor(start_pos+14, 2);
       if (coolant_valve == true) {
         lcd.print("On");
       }
@@ -119,7 +119,7 @@ void dispContent() {
       }
       lcd.setCursor(start_pos, 3);
       lcd.print("A. Valve:");
-      lcd.setCursor(10, 3);
+      lcd.setCursor(start_pos+14, 3);
       if (air_valve == true) {
         lcd.print("On");
       }
@@ -135,8 +135,8 @@ void refDisplay() {
   curr_refresh = millis();
   if (curr_refresh - prev_refresh >= REFRESH_TIME) {
     if (spit_mode == true) {
-      spit_sub+=(REFRESH_TIME/1000.0);                  // Calculate time to subtract from spit time during spit mode
-      spit_val-=spit_sub;                               // Spit time countdown
+      spit_sub += (REFRESH_TIME / 1000.0);              // Calculate time to subtract from spit time during spit mode
+      spit_val -= spit_sub;                             // Spit time countdown
       if (spit_val < 0) {
         spit_val = 0;
       }
