@@ -7,7 +7,7 @@ Installation and configuration:
 
    **SSD1306, SH1106 or SSD1309**
    https://github.com/olikraus/U8g2_Arduino
-   or Tools -> Manage Libraries -> U8g2
+   or go to "Tools" -> "Manage Libraries" and search/install U8g2
 
    **HT16K33**
    https://github.com/adafruit/Adafruit_LED_Backpack
