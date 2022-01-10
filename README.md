@@ -5,7 +5,7 @@ Installation and configuration:
 
 1) Download and import the following libraries depending on your display:
 
-   **SSD1306 or SH1106**
+   **SSD1306, SH1106 or SSD1309**
    https://github.com/olikraus/U8g2_Arduino
 
    **HT16K33**
@@ -55,6 +55,8 @@ Installation and configuration:
 
 
 **HISTORY:**
+
+- v1.3: Added support for SSD1309 128x64 OLED
 
 - v1.2: Fix some 16x4 LCD row 3 and 4 starting at wrong positions
 

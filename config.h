@@ -1,12 +1,12 @@
 /*
 
-  ColdEND32 v1.2 Minimum Quantity Lubrication
+  ColdEND32 v1.3 Minimum Quantity Lubrication
   https://www.end-cnc-shop.de
 
   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 
   Written by Tilman, 2021-12-11
-  Last edited by Tilman, 2021-12-29
+  Last edited by Tilman, 2022-01-10
 
 */
 
@@ -18,6 +18,7 @@
 // Display
 // #define SSD1306                                       // Uncomment for OLED with SSD1306 controller
 // #define SH1106                                        // Uncomment for OLED with SH1106 controller
+#define SSD1309                                       // Uncomment for OLED with SSD1309 controller
 // #define HT16K33                                       // Uncomment for 7-Segment LED Display with HT16K33 Controller
 // #define LCD16X2                                       // Uncomment for 16x2 LCD or VFD with I2C Controller
 // #define LCD16X4                                       // Uncomment for 16x4 LCD or VFD with I2C Controller
@@ -26,7 +27,7 @@
 
 // Features
 // #define DRAIN_SYSTEM                                  // Drain system with reversed fast mode when coolant is set to 0
-// #define MOMENTARY_SWITCH                              // Uncomment for momentary switches instead of solid state switches
+#define MOMENTARY_SWITCH                              // Uncomment for momentary switches instead of solid state switches
 // #define REMOTE_CTRL                                   // Use input #4 for remote mist control from CNC. Momentary switches are required!
 // #define EXT_LED                                       // Uncomment for external LEDs indicating active mode (mist, air or spit)
 
@@ -70,15 +71,17 @@
 #endif
 
 
-#if defined SSD1306 || defined SH1106
+#if defined SSD1306 || defined SH1106 || defined SSD1309
   #define OLED
   #include <Arduino.h>
   #include <U8g2lib.h>                                // Required library: https://github.com/olikraus/U8g2_Arduino
   #include <Wire.h>
-  #ifdef SSD1306
-    U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
-  #else
+  #if defined SSD1306
+    U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE); 
+  #elif defined SH1106
     U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
+  #else
+    U8G2_SSD1309_128X64_NONAME0_F_HW_I2C u8g2(U8G2_R0,U8X8_PIN_NONE);
   #endif
 #endif
 
