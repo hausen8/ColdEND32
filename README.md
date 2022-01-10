@@ -63,6 +63,6 @@ Installation and configuration:
 
 - v1.2: Fix some 16x4 LCD row 3 and 4 starting at wrong positions
 
-- v1.1: Added support for external LEDs indicating the active mode (mist, air or spit)
+- v1.1: Added support for external LEDs indicating active modes (mist, air or spit)
 
 - v1.0: Initial firmware for ESP32 controlled pump board
