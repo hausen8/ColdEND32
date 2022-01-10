@@ -7,10 +7,11 @@ Installation and configuration:
 
    **SSD1306, SH1106 or SSD1309**
    https://github.com/olikraus/U8g2_Arduino
-   or search and install U8g2 with the Library Manager
+   or search and install "U8g2" with the Library Manager
 
    **HT16K33**
    https://github.com/adafruit/Adafruit_LED_Backpack
+   or search and install "Adafruit LED Backpack Library" with the Library Manager
 
    **LCD 16x2 or 16x4**
    https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
@@ -19,11 +20,10 @@ Installation and configuration:
    display at one time is allowed so don't forget to comment the other ones.
    For 7 segment LED displays, don't forget to jumper different I2C addresses for both
    displays and enter these values in config.h ("LED1_ADD" and "LED2_ADD").
-   
-   Note: SSD1309 requires https://github.com/stickbreaker/Wire. Either exchange 
 
 3) Uncomment (define) MOMENTARY_SWITCH if you want to use monentary switches.
-   Required library: https://github.com/thomasfredericks/Bounce2
+   Either download required library from https://github.com/thomasfredericks/Bounce2
+   or search and install "Bounce2" with the Library Manager.
    For solid state switches leave MOMENTARY_SWITCH commented.
 
 4) Uncomment (define) DRAIN_SYSTEM if you want to have the option to drain the coolant
