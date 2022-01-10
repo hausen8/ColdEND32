@@ -11,7 +11,7 @@ Installation and configuration:
 
    **HT16K33**
    https://github.com/adafruit/Adafruit_LED_Backpack
-   or search and install "Adafruit LED Backpack Library" with the Library Manager
+   or search and install "Adafruit LED Backpack" with the Library Manager
 
    **LCD 16x2 or 16x4**
    https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
