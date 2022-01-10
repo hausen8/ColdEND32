@@ -5,15 +5,15 @@ Installation and configuration:
 
 1) Download and install the following libraries depending on your display:
 
-   **SSD1306, SH1106 or SSD1309**
+   **OLED:**
    https://github.com/olikraus/U8g2_Arduino
    or search and install "U8g2" with the Library Manager
 
-   **HT16K33**
+   **LED:**
    https://github.com/adafruit/Adafruit_LED_Backpack
    or search and install "Adafruit LED Backpack" with the Library Manager
 
-   **LCD 16x2 or 16x4**
+   **LCD:**
    https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library
 
 2) Uncomment (define) the appropriate display in config.h. Note that only one type of
