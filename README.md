@@ -7,6 +7,9 @@ Installation and configuration:
 
    **SSD1306, SH1106 or SSD1309**
    https://github.com/olikraus/U8g2_Arduino
+   
+   **SSD1309**
+   https://github.com/stickbreaker/Wire
 
    **HT16K33**
    https://github.com/adafruit/Adafruit_LED_Backpack
@@ -18,6 +21,10 @@ Installation and configuration:
    display at one time is allowed so don't forget to comment the other ones.
    For 7 segment LED displays, don't forget to jumper different I2C addresses for both
    displays and enter these values in config.h ("LED1_ADD" and "LED2_ADD").
+   
+   NOTE: SSD1309 requires a different version of Wire. Download the library from
+   https://github.com/stickbreaker/Wire, extract the Wire folder into your sketch folder
+   and 
 
 3) Uncomment (define) MOMENTARY_SWITCH if you want to use monentary switches.
    Required library: https://github.com/thomasfredericks/Bounce2
