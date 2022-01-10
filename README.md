@@ -3,10 +3,11 @@ Firmware for ColdEND32 controller supporting various displays
 
 Installation and configuration:
 
-1) Download and import the following libraries depending on your display:
+1) Download and install the following libraries depending on your display:
 
    **SSD1306, SH1106 or SSD1309**
    https://github.com/olikraus/U8g2_Arduino
+   or Tools -> Manage Libraries -> U8g2
 
    **HT16K33**
    https://github.com/adafruit/Adafruit_LED_Backpack
@@ -18,6 +19,8 @@ Installation and configuration:
    display at one time is allowed so don't forget to comment the other ones.
    For 7 segment LED displays, don't forget to jumper different I2C addresses for both
    displays and enter these values in config.h ("LED1_ADD" and "LED2_ADD").
+   
+   Note: SSD1309 requires https://github.com/stickbreaker/Wire. Either exchange 
 
 3) Uncomment (define) MOMENTARY_SWITCH if you want to use monentary switches.
    Required library: https://github.com/thomasfredericks/Bounce2
