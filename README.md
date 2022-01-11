@@ -20,7 +20,7 @@ Installation and configuration:
    display at one time is allowed so don't forget to comment the other ones.
    For 7 segment LED displays, don't forget to jumper different I2C addresses for both
    displays and enter these values in config.h ("LED1_ADD" and "LED2_ADD").
-   NOTE: SSD1309 will only work when the RES pin is connected to the EN pin of the ESP32!
+   NOTE: SSD1309 requires a connection between its RES pin and the EN pin of the ESP32!
 
 3) Uncomment (define) MOMENTARY_SWITCH if you want to use monentary switches.
    Either download required library from https://github.com/thomasfredericks/Bounce2
