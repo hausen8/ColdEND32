@@ -60,7 +60,7 @@ Installation and configuration:
 
 **HISTORY:**
 
-- v1.3: Added support for SSD1309 128x64 OLED
+- v1.3: Added support for SSD1309 128x64 OLED and Stickbreakers Wire library
 
 - v1.2: Fix some 16x4 LCD row 3 and 4 starting at wrong positions
 
