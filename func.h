@@ -32,14 +32,14 @@ void switchStat() {
     
     // Read momentary mist switch
     btnMist.update();
-    if (btnMist.fell()) {
+    if (btnMist.rose()) {
       mist_stat = !mist_stat;                     // Toggle between mist on and off
       air_stat = LOW;                             // switch off air stat
     }
     
     // Read momentary air switch
     btnAir.update();
-    if (btnAir.fell()) {
+    if (btnAir.rose()) {
       air_stat = !air_stat;                       // Toggle between air on and off
       mist_stat = LOW;                            // switch off mist stat
     }
